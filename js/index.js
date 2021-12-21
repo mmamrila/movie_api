@@ -1,5 +1,5 @@
 const express = require('express');
-  morgan = require('morgan');
+const morgan = require('morgan');
 
 const app = express();
 
@@ -54,6 +54,51 @@ app.get('/', (req, res) => {
 
 app.get('/movies', (req, res) => {
   res.json(topHorrorMovies);
+});
+
+// Return list of all movies
+app.get('/movies', (req, res) => {
+  res.json(movies)
+});
+
+// Return data about single movie title
+app.get('/movies/:title', (req, res) => {
+  res.send('Movie by title');
+});
+
+// Return data about genre
+app.get('/movies/genres/:title', (req, res) => {
+  res.send('Genre by title');
+});
+
+// Return data about director
+app.get('movies/director/:name', (req, res) => {
+  res.send('Director info by name')
+});
+
+// Allow new user to register
+app.post('/users', (req, res) => {
+  res.send('Registration complete')
+});
+
+// Allow user to update username
+app.put('/users/:username', (req, res) => {
+  res.send('Username updated')
+});
+
+// Allow user to add movie to favorites
+app.post('/users/:username/movies/:movieId/favorites', (req, res) => {
+  res.send('Movie added to favorites list')
+});
+
+// Allow user to delete movie from favorites
+app.delete('/users/:username/favorites/:movieId', (req, res) => {
+  res.send('Movie removed from favorites list')
+});
+
+// Allow user to deregister
+app.delete('/users/:username', (req, res) => {
+  res.send('Your account was deleted')
 });
 
 app.use('/documentation.html', express.static('public'));

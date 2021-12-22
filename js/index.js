@@ -1,11 +1,15 @@
 const express = require('express');
 const morgan = require('morgan');
+const uuid = require('uuid');
+const bodyParser = require('body-parser');
 
 const app = express();
 
 app.use(morgan('common'));
+app.use(bodyParser.json());
 
-let topHorrorMovies = [
+// Top 10
+let movies = [
   {
     title: 'The Shining',
     director: 'Stanley Kubrick'
@@ -48,12 +52,13 @@ let topHorrorMovies = [
   }
 ];
 
+// Homepage
 app.get('/', (req, res) => {
-  res.send('Any zombies out there?')
+  res.send('Any zombies out there?');
 });
 
-app.get('/movies', (req, res) => {
-  res.json(topHorrorMovies);
+app.get('/documentation', (req, res) => {
+  res.sendfile('/public/documentation.html', {root: __dirname})
 });
 
 // Return list of all movies
@@ -63,7 +68,7 @@ app.get('/movies', (req, res) => {
 
 // Return data about single movie title
 app.get('/movies/:title', (req, res) => {
-  res.send('Movie by title');
+  res.send("Movie by title");
 });
 
 // Return data about genre
@@ -72,8 +77,8 @@ app.get('/movies/genres/:title', (req, res) => {
 });
 
 // Return data about director
-app.get('movies/director/:name', (req, res) => {
-  res.send('Director info by name')
+app.get('/movies/director/:name', (req, res) => {
+  res.send('Director info by name');
 });
 
 // Allow new user to register
@@ -96,12 +101,12 @@ app.delete('/users/:username/favorites/:movieId', (req, res) => {
   res.send('Movie removed from favorites list')
 });
 
-// Allow user to deregister
+// Allow user to unregister
 app.delete('/users/:username', (req, res) => {
   res.send('Your account was deleted')
 });
 
-app.use('/documentation.html', express.static('public'));
+app.use(express.static('public'));
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

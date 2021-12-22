@@ -6,7 +6,78 @@
     <title>DOCUMENTATION</title>
   </head>
   <body>
-    <h1>Documentation Page</h1>
-    <p>Temporary paragraph in documentation page</p>
+    <h1>Movie API</h1>
+    <table>
+      <tr>
+        <td>Get list of all movies</td>
+        <td>'/movies'</td>
+        <td>GET</td>
+        <td>Returns json file list of movies</td>
+      </tr>
+
+      <tr>
+        <td>Get data about a movie</td>
+        <td>'/movies/:title'</td>
+        <td>GET</td>
+        <td>Returns json data for a specific movie</td>
+        <td>Example: The Shining</td>
+      </tr>
+
+      <tr>
+        <td>Get data about movie's genre</td>
+        <td>'/movies/genres/:title'</td>
+        <td>GET</td>
+        <td>Returns json data about a movies genre</td>
+        <td>Example: Horror</td>
+      </tr>
+
+      <tr>
+        <td>Get data about a movie's director</td>
+        <td>'movies/director/:name'</td>
+        <td>GET</td>
+        <td>Returns json data about a movies director</td>
+        <td>Example: Stanley Kubrick</td>
+      </tr>
+
+      <tr>
+        <td>Allows new user to register</td>
+        <td>'/users'</td>
+        <td>POST</td>
+        <td>Adds new user to json object</td>
+        <td>Example: New user Mike was added</td>
+      </tr>
+
+      <tr>
+        <td>Allows user to update username</td>
+        <td>'/users/:username'</td>
+        <td>PUT</td>
+        <td>Returns updated username data</td>
+        <td>Example: Username Mike was changed to Mike1</td>
+      </tr>
+
+      <tr>
+        <td>Allows users to add movie to favorites</td>
+        <td>'/users/:username/movies/:movieId/favorites'</td>
+        <td>POST</td>
+        <td>Returns text confirming that a movie was successfully added</td>
+        <td>Example: The Shining was added to your favorites</td>
+      </tr>
+
+      <tr>
+        <td>Allows user to delete a movie from favorites</td>
+        <td>'/users/:username/favorites/:movieId'</td>
+        <td>DELETE</td>
+        <td>Returns text confirming that a movie was successfully deleted</td>
+        <td>Example: The Shining was removed from your favorites</td>
+      </tr>
+
+      <tr>
+        <td>Allows user to unregister</td>
+        <td>'/users/:username'</td>
+        <td>DELETE</td>
+        <td>Removes a user from json object</td>
+        <td>You account was successfully deleted</td>
+      </tr>
+    </table>
   </body>
 </html>

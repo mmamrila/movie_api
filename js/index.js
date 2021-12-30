@@ -8,61 +8,61 @@ const app = express();
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
-const Movies = Models.Movie;
+const myFlixDB = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect('mongodb://localhost:27017//myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
-// Top 10
-let movies = [
-  {
-    title: 'The Shining',
-    director: 'Stanley Kubrick'
-  },
-  {
-    title: 'The Others',
-    director: 'Alejandro Amenabar'
-  },
-  {
-    title: 'Shaun of the Dead',
-    director: 'Edgar Wright'
-  },
-  {
-    title: 'The Exorcist',
-    director: 'William Friedkin'
-  },
-  {
-    title: 'The Mist',
-    director: 'Frank Darabont'
-  },
-  {
-    title: 'Let the Right One In',
-    director: 'Tomas Alfredson'
-  },
-  {
-    title: 'Sweeney Todd: The Demon Barber of Fleet Street',
-    director: 'Tim Burton'
-  },
-  {
-    title: 'The Birds',
-    director: 'Alfred Hitchcock'
-  },
-  {
-    title: 'Alien',
-    director: 'Ridley Scott'
-  },
-  {
-    title: 'The Omen',
-    director: 'Richard Donner'
-  },
-  {
-    title: 'Hannibal',
-    director: 'Ridley Scott'
-  }
-];
+// // Top 10
+// let movies = [
+//   {
+//     title: 'The Shining',
+//     director: 'Stanley Kubrick'
+//   },
+//   {
+//     title: 'The Others',
+//     director: 'Alejandro Amenabar'
+//   },
+//   {
+//     title: 'Shaun of the Dead',
+//     director: 'Edgar Wright'
+//   },
+//   {
+//     title: 'The Exorcist',
+//     director: 'William Friedkin'
+//   },
+//   {
+//     title: 'The Mist',
+//     director: 'Frank Darabont'
+//   },
+//   {
+//     title: 'Let the Right One In',
+//     director: 'Tomas Alfredson'
+//   },
+//   {
+//     title: 'Sweeney Todd: The Demon Barber of Fleet Street',
+//     director: 'Tim Burton'
+//   },
+//   {
+//     title: 'The Birds',
+//     director: 'Alfred Hitchcock'
+//   },
+//   {
+//     title: 'Alien',
+//     director: 'Ridley Scott'
+//   },
+//   {
+//     title: 'The Omen',
+//     director: 'Richard Donner'
+//   },
+//   {
+//     title: 'Hannibal',
+//     director: 'Ridley Scott'
+//   }
+// ];
 
 // Homepage
 app.get('/', (req, res) => {
@@ -75,7 +75,7 @@ app.get('/documentation', (req, res) => {
 
 // Return list of all movies
 app.get('/movies', (req, res) => {
-  Movies.find()
+  myFlixDB.find()
     .then((movies) => {
       res.status(201).json(movies);
     })
@@ -99,7 +99,7 @@ app.get('/users', (req, res) => {
 
 // Return data about single movie title
 app.get('/movies/:Title', (req, res) => {
-  Movies.findOne({ Title: req.params.Title })
+  myFlixDB.findOne({ Title: req.params.Title })
     .then((movie) => {
       res.json(movie);
     })
@@ -109,29 +109,29 @@ app.get('/movies/:Title', (req, res) => {
     });
 });
 
-// Return data about genre
-app.get('/genre/:Name', (reg, res) => {
-  Genres.findOne({ Name: req.params.Name })
-    .then((genre) => {
-      res.json(genre.Description);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
-
-// Return data about director
-app.get('/director/:Name', (req, res) => {
-  Directors.findOne({ Name: req.params.Name })
-    .then((director) => {
-      res.json(director);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
+// // Return data about genre
+// app.get('/genre/:Name', (reg, res) => {
+//   Genres.findOne({ Name: req.params.Name })
+//     .then((genre) => {
+//       res.json(genre.Description);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).send('Error: ' + err);
+//     });
+// });
+//
+// // Return data about director
+// app.get('/director/:Name', (req, res) => {
+//   Directors.findOne({ Name: req.params.Name })
+//     .then((director) => {
+//       res.json(director);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).send('Error: ' + err);
+//     });
+// });
 
 // Allow new user to register
 app.post('/users', (req, res) => {

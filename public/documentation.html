@@ -9,6 +9,13 @@
     <h1>Movie API</h1>
     <table>
       <tr>
+        <td>Homepage</td>
+        <td>'/'</td>
+        <td>GET</td>
+        <td>Returns text "Welcome to MyFlix!"</td>
+      </tr>
+
+      <tr>
         <td>Get list of all movies</td>
         <td>'/movies'</td>
         <td>GET</td>
@@ -17,26 +24,33 @@
 
       <tr>
         <td>Get data about a movie</td>
-        <td>'/movies/:title'</td>
+        <td>'/movies/:Title'</td>
         <td>GET</td>
         <td>Returns json data for a specific movie</td>
         <td>Example: The Shining</td>
       </tr>
 
       <tr>
-        <td>Get data about movie's genre</td>
-        <td>'/movies/genres/:title'</td>
+        <td>Get data about a genre</td>
+        <td>'/genre/:Name'</td>
         <td>GET</td>
-        <td>Returns json data about a movies genre</td>
+        <td>Returns json data about a genre</td>
         <td>Example: Horror</td>
       </tr>
 
       <tr>
-        <td>Get data about a movie's director</td>
-        <td>'movies/director/:name'</td>
+        <td>Get data about a director</td>
+        <td>'/director/:Name'</td>
         <td>GET</td>
-        <td>Returns json data about a movies director</td>
+        <td>Returns json data about a director</td>
         <td>Example: Stanley Kubrick</td>
+      </tr>
+
+      <tr>
+        <td>Get list of all users</td>
+        <td>'/users'</td>
+        <td>GET</td>
+        <td>Returns json file list of users</td>
       </tr>
 
       <tr>
@@ -49,7 +63,7 @@
 
       <tr>
         <td>Allows user to update username</td>
-        <td>'/users/:username'</td>
+        <td>'/users/:Username'</td>
         <td>PUT</td>
         <td>Returns updated username data</td>
         <td>Example: Username Mike was changed to Mike1</td>
@@ -57,7 +71,7 @@
 
       <tr>
         <td>Allows users to add movie to favorites</td>
-        <td>'/users/:username/movies/:movieId/favorites'</td>
+        <td>'/users/:Username/movies/:Title'</td>
         <td>POST</td>
         <td>Returns text confirming that a movie was successfully added</td>
         <td>Example: The Shining was added to your favorites</td>
@@ -65,7 +79,7 @@
 
       <tr>
         <td>Allows user to delete a movie from favorites</td>
-        <td>'/users/:username/favorites/:movieId'</td>
+        <td>'/users/:Username/movies/:Title'</td>
         <td>DELETE</td>
         <td>Returns text confirming that a movie was successfully deleted</td>
         <td>Example: The Shining was removed from your favorites</td>
@@ -73,7 +87,7 @@
 
       <tr>
         <td>Allows user to unregister</td>
-        <td>'/users/:username'</td>
+        <td>'/users/:Username'</td>
         <td>DELETE</td>
         <td>Removes a user from json object</td>
         <td>You account was successfully deleted</td>

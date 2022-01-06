@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const uuid = require('uuid');
 const bodyParser = require('body-parser');
-
+const { check, validationResult } = require('express-validator');
 const app = express();
 
 const mongoose = require('mongoose');
@@ -16,6 +16,8 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB', { useNewUrlParser: true, 
 app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+const cors = require('cors');
+app.use(cors());
 let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
@@ -142,7 +144,21 @@ app.get('/movies/:Title', passport.authenticate('jwt', { session: false }),
 // });
 
 // Allow new user to register
-app.post('/users', (req, res) => {
+app.post('/users',
+  [
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+    check('Password', 'Password is required').not().isEmpty(),
+    check('Email', 'Email does not appear to be valid').isEmail()
+  ], (req, res) => {
+    // check validation object for errors
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(422).json({ errors: errors.array() });
+    }
+
+  let hashPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -151,7 +167,7 @@ app.post('/users', (req, res) => {
         Users
           .create ({
             Username: req.body.Username,
-            Password: req.body.Password,
+            Password: hashedPassword,
             Email: req.body.Email,
             Birthday: req.body.Birthday
           })
@@ -172,7 +188,17 @@ app.post('/users', (req, res) => {
 
 // Allow user to update username
 app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
-(req, res) => {
+  [
+    check('Username', 'Username is required').isLength({min: 5}),
+    check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric()
+], (req, res) => {
+  // check validation object for errors
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+  
   Users.findOneAndUpdate(
     { Username: req.params.Username },
     {

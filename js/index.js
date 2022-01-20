@@ -23,53 +23,6 @@ let auth = require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
-// // Top 10
-// let movies = [
-//   {
-//     title: 'The Shining',
-//     director: 'Stanley Kubrick'
-//   },
-//   {
-//     title: 'The Others',
-//     director: 'Alejandro Amenabar'
-//   },
-//   {
-//     title: 'Shaun of the Dead',
-//     director: 'Edgar Wright'
-//   },
-//   {
-//     title: 'The Exorcist',
-//     director: 'William Friedkin'
-//   },
-//   {
-//     title: 'The Mist',
-//     director: 'Frank Darabont'
-//   },
-//   {
-//     title: 'Let the Right One In',
-//     director: 'Tomas Alfredson'
-//   },
-//   {
-//     title: 'Sweeney Todd: The Demon Barber of Fleet Street',
-//     director: 'Tim Burton'
-//   },
-//   {
-//     title: 'The Birds',
-//     director: 'Alfred Hitchcock'
-//   },
-//   {
-//     title: 'Alien',
-//     director: 'Ridley Scott'
-//   },
-//   {
-//     title: 'The Omen',
-//     director: 'Richard Donner'
-//   },
-//   {
-//     title: 'Hannibal',
-//     director: 'Ridley Scott'
-//   }
-// ];
 
 // Homepage
 app.get('/', passport.authenticate('jwt', { session: false }),

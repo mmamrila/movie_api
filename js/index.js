@@ -39,8 +39,7 @@ app.get('/documentation', (req, res) => {
 });
 
 // Return list of all movies
-app.get('/movies', passport.authenticate('jwt', { session: false }),
-(req, res) => {
+app.get('/movies', (req, res) => {
   myFlixDB.find()
     .then((movies) => {
       res.status(201).json(movies);
